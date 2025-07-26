@@ -1,0 +1,38 @@
+name: Download YouTube Subtitles
+
+on:
+  workflow_dispatch:  # so you can trigger manually from GitHub UI
+
+jobs:
+  download_subtitles:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install yt-dlp
+      run: pip install yt-dlp
+
+    - name: Download subtitles
+      run: |
+        python -c "
+from yt_dlp import YoutubeDL
+url = 'https://www.youtube.com/watch?v=VIDEO_ID'  # Replace with your video URL
+ydl_opts = {
+    'writesubtitles': True,
+    'subtitleslangs': ['en'],
+    'skip_download': True,
+    'outtmpl': 'subtitle.%(ext)s',
+}
+with YoutubeDL(ydl_opts) as ydl:
+    ydl.download([url])
+"
+      
+    - name: List downloaded files
+      run: ls -lh
