@@ -23,7 +23,7 @@ jobs:
       run: |
         python -c "
 from yt_dlp import YoutubeDL
-url = 'https://www.youtube.com/watch?v=VIDEO_ID'  # Replace with your video URL
+url = 'https://www.youtube.com/watch?v=8mCA0746NqM' 
 ydl_opts = {
     'writesubtitles': True,
     'subtitleslangs': ['en'],
